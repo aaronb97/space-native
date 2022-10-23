@@ -1,6 +1,8 @@
 import { Canvas, useFrame } from "@react-three/fiber";
+import { OrbitControls } from "@react-three/drei/native";
 import * as THREE from "three";
 import { useRef } from "react";
+import { Platform } from "react-native";
 
 function MyRotatingBox() {
   const myMesh = useRef<THREE.Mesh>();
@@ -24,6 +26,7 @@ export default function App() {
       <MyRotatingBox />
       <ambientLight intensity={0.1} />
       <directionalLight />
+      {Platform.OS === "web" ? <OrbitControls /> : null}
     </Canvas>
   );
 }
