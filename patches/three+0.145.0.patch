@@ -1,0 +1,17 @@
+diff --git a/node_modules/three/build/three.js b/node_modules/three/build/three.js
+index 99a6869..caa9b46 100644
+--- a/node_modules/three/build/three.js
++++ b/node_modules/three/build/three.js
+@@ -14122,9 +14122,9 @@
+ 		gl.linkProgram(program); // check for link errors
+ 
+ 		if (renderer.debug.checkShaderErrors) {
+-			const programLog = gl.getProgramInfoLog(program).trim();
+-			const vertexLog = gl.getShaderInfoLog(glVertexShader).trim();
+-			const fragmentLog = gl.getShaderInfoLog(glFragmentShader).trim();
++			const programLog = gl.getProgramInfoLog(program)?.trim();
++			const vertexLog = gl.getShaderInfoLog(glVertexShader)?.trim();
++			const fragmentLog = gl.getShaderInfoLog(glFragmentShader)?.trim();
+ 			let runnable = true;
+ 			let haveDiagnostics = true;
+ 

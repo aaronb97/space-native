@@ -1,32 +1,21 @@
 import { Canvas, useFrame } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/native";
-import * as THREE from "three";
-import { useRef } from "react";
 import { Platform } from "react-native";
-
-function MyRotatingBox() {
-  const myMesh = useRef<THREE.Mesh>();
-
-  useFrame(({ clock }) => {
-    const a = clock.getElapsedTime();
-    myMesh.current.rotation.x = a;
-  });
-
-  return (
-    <mesh ref={myMesh}>
-      <boxGeometry />
-      <meshPhongMaterial color="orange" />
-    </mesh>
-  );
-}
+import { Rocket } from "./Visualizer/components/Rocket/Rocket";
+import { Suspense } from "react";
+import { useAssets } from "expo-asset";
 
 export default function App() {
+  const [assets, error] = useAssets([require("./public/models/Rocket.obj")]);
+
   return (
-    <Canvas>
-      <MyRotatingBox />
-      <ambientLight intensity={0.1} />
-      <directionalLight />
-      {Platform.OS === "web" ? <OrbitControls /> : null}
-    </Canvas>
+    <Suspense fallback={null}>
+      <Canvas>
+        {assets ? <Rocket uri={assets[0].uri} /> : null}
+        <ambientLight intensity={0.05} />
+        <directionalLight />
+        {Platform.OS === "web" ? <OrbitControls /> : null}
+      </Canvas>
+    </Suspense>
   );
 }
