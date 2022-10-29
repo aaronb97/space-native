@@ -1,21 +1,23 @@
-import { Canvas, useFrame } from "@react-three/fiber";
+import { Canvas } from "@react-three/fiber";
 import { OrbitControls } from "@react-three/drei/native";
 import { Platform } from "react-native";
-import { Rocket } from "./Visualizer/components/Rocket/Rocket";
+import { Rocket } from "./src/components/Rocket/Rocket";
 import { Suspense } from "react";
 import { useAssets } from "expo-asset";
+import { Login } from "./src/components/Login";
 
 export default function App() {
-  const [assets, error] = useAssets([require("./public/models/Rocket.obj")]);
+  const [assets] = useAssets([require("./src/Rocket.obj")]);
 
   return (
-    <Suspense fallback={null}>
+    <>
+      <Login></Login>
       <Canvas>
-        {assets ? <Rocket uri={assets[0].uri} /> : null}
+        {/* {assets ? <Rocket uri={assets[0].uri} /> : null}
         <ambientLight intensity={0.05} />
-        <directionalLight />
+        <directionalLight /> */}
         {Platform.OS === "web" ? <OrbitControls /> : null}
       </Canvas>
-    </Suspense>
+    </>
   );
 }
