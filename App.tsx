@@ -10,14 +10,14 @@ export default function App() {
   const [assets] = useAssets([require("./src/Rocket.obj")]);
 
   return (
-    <>
+    <Suspense fallback={null}>
       <Login></Login>
       <Canvas>
-        {/* {assets ? <Rocket uri={assets[0].uri} /> : null}
+        {assets ? <Rocket uri={assets[0].uri} /> : null}
         <ambientLight intensity={0.05} />
-        <directionalLight /> */}
+        <directionalLight />
         {Platform.OS === "web" ? <OrbitControls /> : null}
       </Canvas>
-    </>
+    </Suspense>
   );
 }
