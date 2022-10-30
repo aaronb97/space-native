@@ -5,6 +5,7 @@ import { Rocket } from "./src/components/Rocket/Rocket";
 import { Suspense } from "react";
 import { useAssets } from "expo-asset";
 import { Login } from "./src/components/Login";
+import { Sky } from "./src/components/Sky";
 
 export default function App() {
   const [assets] = useAssets([require("./src/Rocket.obj")]);
@@ -12,7 +13,8 @@ export default function App() {
   return (
     <Suspense fallback={null}>
       <Login></Login>
-      <Canvas>
+      <Canvas camera={{ far: 100000 }}>
+        <Sky />
         {assets ? <Rocket uri={assets[0].uri} /> : null}
         <ambientLight intensity={0.05} />
         <directionalLight />
