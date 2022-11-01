@@ -13,6 +13,7 @@ import * as Application from "expo-application";
 import { auth } from "../../firebase/firebaseApp";
 
 import * as Google from "expo-auth-session/providers/google";
+import { Panel } from "../Panel";
 
 WebBrowser.maybeCompleteAuthSession();
 
@@ -39,7 +40,9 @@ export function Login() {
 
   return (
     <SafeAreaView>
-      <Button onPress={onClickGoogle} title="Google Sign-In"></Button>
+      <Panel>
+        <Button onPress={onClickGoogle} title="Google Sign-In"></Button>
+      </Panel>
     </SafeAreaView>
   );
 }
