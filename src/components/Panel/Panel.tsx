@@ -5,6 +5,11 @@ const styles = StyleSheet.create({
   panel: {
     backgroundColor: "rgba(0, 0, 0, 0.7)",
     width: 330,
+    alignSelf: "center",
+    margin: 12,
+    padding: 12,
+    borderColor: "grey",
+    borderWidth: 1,
   },
 });
 
