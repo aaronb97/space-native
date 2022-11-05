@@ -12,7 +12,7 @@ export default function App() {
   const [userData, setUserData] = useState<UserData | undefined>();
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setFirebaseUser(user);
         client.login(user).then((result) => {
@@ -20,6 +20,8 @@ export default function App() {
         });
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
   return (
