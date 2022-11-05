@@ -15,9 +15,18 @@ export default function App() {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
         setFirebaseUser(user);
-        client.login(user).then((result) => {
-          setUserData(result.data);
-        });
+        client
+          .login(user)
+          .then((result) => {
+            if (result) {
+              setUserData(result.data);
+            } else {
+              console.error("Unexpected falsy result");
+            }
+          })
+          .catch((e) => {
+            console.error(e);
+          });
       }
     });
 

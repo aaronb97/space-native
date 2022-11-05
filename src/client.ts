@@ -4,7 +4,6 @@ import { auth } from "./firebase/firebaseApp";
 import { Planet } from "./types/Planet";
 import { UserData } from "./types/UserData";
 import { SERVER_URL } from "@env";
-console.log(SERVER_URL);
 
 class Client {
   constructor(private readonly url: string) {}

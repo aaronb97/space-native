@@ -1,6 +1,4 @@
 import { useLoader } from "@react-three/fiber";
-import { useAssets } from "expo-asset";
-import { Suspense } from "react";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
 
 interface Props {

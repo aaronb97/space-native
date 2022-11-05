@@ -1,5 +1,4 @@
-import React from "react";
-import { Text, View, StyleSheet, Pressable } from "react-native";
+import { Pressable, StyleSheet, Text } from "react-native";
 
 interface Props {
   onPress: () => unknown;

@@ -1,16 +1,8 @@
-import {
-  createUserWithEmailAndPassword,
-  GoogleAuthProvider,
-  signInAnonymously,
-  signInWithCredential,
-  signInWithRedirect,
-} from "firebase/auth";
+import { GoogleAuthProvider, signInWithCredential } from "firebase/auth";
 
-import * as WebBrowser from "expo-web-browser";
-import * as test from "firebase/auth";
-import React, { useEffect, useState } from "react";
-import { Button, SafeAreaView, View } from "react-native";
 import * as Application from "expo-application";
+import * as WebBrowser from "expo-web-browser";
+import { SafeAreaView } from "react-native";
 import { auth } from "../../firebase/firebaseApp";
 
 import * as Google from "expo-auth-session/providers/google";
@@ -20,7 +12,7 @@ import TextButton from "../TextButton/TextButton";
 WebBrowser.maybeCompleteAuthSession();
 
 export function Login() {
-  const [test, result, authRequest] = Google.useAuthRequest({
+  const [, , authRequest] = Google.useAuthRequest({
     iosClientId:
       "654827401209-1kah4ba0cmi5ek6l4k4r78ktj136k9qt.apps.googleusercontent.com",
     webClientId:
@@ -33,20 +25,31 @@ export function Login() {
   console.log(Application.applicationId);
 
   const onClickGoogle = () => {
-    authRequest().then((result) => {
-      if (result.type === "success") {
-        const { idToken, accessToken } = result.authentication;
-        const credential = GoogleAuthProvider.credential(idToken, accessToken);
+    authRequest()
+      .then((result) => {
+        if (result.type === "success") {
+          if (result.authentication) {
+            const { idToken, accessToken } = result.authentication;
+            const credential = GoogleAuthProvider.credential(
+              idToken,
+              accessToken
+            );
 
-        signInWithCredential(auth, credential);
-      }
-    });
+            signInWithCredential(auth, credential).catch((e) =>
+              console.error(e)
+            );
+          } else {
+            console.error("Unexpected null authentication");
+          }
+        }
+      })
+      .catch((e) => console.error(e));
   };
 
   return (
     <SafeAreaView>
       <Panel>
-        <TextButton onPress={onClickGoogle} title="Google Sign-In"></TextButton>
+        <TextButton onPress={onClickGoogle} title="Google Sign-In" />
       </Panel>
     </SafeAreaView>
   );

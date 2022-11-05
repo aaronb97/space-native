@@ -2,10 +2,9 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { useAssets } from "expo-asset";
 import React from "react";
-import { Platform, View } from "react-native";
+import { Platform, View, StyleSheet } from "react-native";
 import { Rocket } from "../Rocket";
 import { Sky } from "../Sky";
-import { StyleSheet } from "react-native";
 
 export const Visualizer = () => {
   const [assets] = useAssets([require("./Rocket.obj")]);

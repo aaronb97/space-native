@@ -1,4 +1,3 @@
-import React from "react";
 import { SafeAreaView } from "react-native";
 import { UserData } from "../../types/UserData";
 import { Panel } from "../Panel";
