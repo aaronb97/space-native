@@ -1,6 +1,7 @@
 import { User } from "firebase/auth";
 import { Suspense, useEffect, useState } from "react";
 import { client } from "./src/client";
+import { InfoPanel } from "./src/components/InfoPanel";
 import { Login } from "./src/components/Login";
 import { Visualizer } from "./src/components/Visualizer";
 import { auth } from "./src/firebase/firebaseApp";
@@ -24,6 +25,7 @@ export default function App() {
   return (
     <Suspense fallback={null}>
       {!firebaseUser && <Login />}
+      {userData && <InfoPanel userData={userData} />}
       <Visualizer />
     </Suspense>
   );
