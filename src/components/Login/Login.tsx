@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   GoogleAuthProvider,
   signInAnonymously,
+  signInWithCredential,
   signInWithRedirect,
 } from "firebase/auth";
 
@@ -19,8 +20,7 @@ import TextButton from "../TextButton/TextButton";
 WebBrowser.maybeCompleteAuthSession();
 
 export function Login() {
-  const [emailClicked, setEmailClicked] = useState(false);
-  const [_, _2, authRequest] = Google.useAuthRequest({
+  const [test, result, authRequest] = Google.useAuthRequest({
     iosClientId:
       "654827401209-1kah4ba0cmi5ek6l4k4r78ktj136k9qt.apps.googleusercontent.com",
     webClientId:
@@ -33,9 +33,13 @@ export function Login() {
   console.log(Application.applicationId);
 
   const onClickGoogle = () => {
-    // signInWithRedirect(auth, google).catch((e) => console.error(e));
     authRequest().then((result) => {
-      console.log(result);
+      if (result.type === "success") {
+        const { idToken, accessToken } = result.authentication;
+        const credential = GoogleAuthProvider.credential(idToken, accessToken);
+
+        signInWithCredential(auth, credential);
+      }
     });
   };
 
